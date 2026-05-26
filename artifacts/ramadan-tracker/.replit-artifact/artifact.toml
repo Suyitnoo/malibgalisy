@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Ramadan Tracker"
+version = "1.0.0"
+id = "artifacts/ramadan-tracker"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19777
+
+[services.development]
+run = "pnpm --filter @workspace/ramadan-tracker run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ramadan-tracker", "run", "build" ]
+publicDir = "artifacts/ramadan-tracker/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19777"
+BASE_PATH = "/"
